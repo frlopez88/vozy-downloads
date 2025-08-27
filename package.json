@@ -1,0 +1,25 @@
+{
+  "name": "vozy-downloads",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frlopez88/vozy-downloads.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/frlopez88/vozy-downloads/issues"
+  },
+  "homepage": "https://github.com/frlopez88/vozy-downloads#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "pg": "^8.16.3"
+  }
+}

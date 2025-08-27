@@ -1,11 +1,19 @@
 // controller/insercion.js
 import { pool } from '../db/cn.js';
+import { config } from 'dotenv';
+
+config()
+
+const tabla = process.env.BD_TBL_LLAMADAS
+
 
 const INSERT_SQL = `
-  INSERT INTO extracciones.tbl_llamadas
+  INSERT INTO ${tabla}
   (fecha, session_id, contact_phone, call_answered, duration, campaign_name, variables)
   VALUES ($1, $2, $3, $4, $5, $6, $7)
 `;
+
+
 
 export const request = async (url, x_api_key) => {
   try {
@@ -31,9 +39,9 @@ export const request = async (url, x_api_key) => {
 
     for (const obj of answered) {
       const params = [
-        obj.date?.substring(0, 10), 
+        obj.date?.substring(0, 10),
         obj.session_id,
-        obj.contact_phone?.substring(0, 12), 
+        obj.contact_phone?.substring(0, 12),
         obj.call_answered,
         obj.duration,
         obj.campaign_name,

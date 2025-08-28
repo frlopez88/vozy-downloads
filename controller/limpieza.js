@@ -8,6 +8,8 @@ export const limpiezaDistribucion = async (p_fecha) => {
 
     const sql = `call ${procedureName}`
     const params = [p_fecha]
+    console.log(sql)
+    console.log(p_fecha)
 
     try {
 

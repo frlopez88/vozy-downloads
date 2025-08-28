@@ -8,10 +8,12 @@ export const conversion = (fechaStr) => {
 
     // Calcular inicio del día (00:00:00)
     const inicio = new Date(fecha);
+    inicio.toLocaleString("es-HN", { timeZone: "America/Tegucigalpa" })
     inicio.setHours(0, 0, 0, 0);
 
     // Calcular fin del día (23:59:59)
     const fin = new Date(fecha);
+    fin.toLocaleString("es-HN", { timeZone: "America/Tegucigalpa" })
     fin.setHours(23, 59, 59, 999);
 
     return {

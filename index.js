@@ -6,7 +6,15 @@ import { conversion } from './utils/conversionUnix.js';
 import { request } from './controller/insercion.js';
 import { limpiezaDistribucion } from './controller/limpieza.js';
 
-const dates = conversion('26-aug-2025');
+const hoy = new Date();
+const manana = new Date(hoy);
+manana.setDate(hoy.getDate() + 1);
+
+const fechaProceso = process.argv[2] || manana.toISOString().slice(0,10);
+console.log("Fecha Proceso:", fechaProceso)
+
+const dates = conversion(fechaProceso);
+console.log(dates)
 const base_url = process.env.BASE_URL;
 const api_key = process.env.API_KEY;
 
@@ -17,7 +25,7 @@ async function main() {
   let total = 0;
 
   while (true) {
-    const url = `${base_url}?start_date=${dates.inicio_unix}&end_date=${dates.fin_unix}&page=${page}&per_page=250`;
+    const url = `${base_url}?start_date=${dates.inicio_unix}&end_date=${dates.fin_unix}&page=${page}&per_page=500`;
     console.log(`Page ${page} -> ${url}`);
 
     const { count, done, error } = await request(url, api_key);
@@ -40,7 +48,7 @@ async function main() {
   }
   console.log(`Total insertado: ${total}`);
 
-  const { message } = await limpiezaDistribucion(dates.fecha_original)
+  const { message } = await limpiezaDistribucion(fechaProceso )
 
   console.log("Proceso de Limpieza: ", message)
 }

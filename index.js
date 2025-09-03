@@ -7,10 +7,11 @@ import { request } from './controller/insercion.js';
 import { limpiezaDistribucion } from './controller/limpieza.js';
 
 const hoy = new Date();
-const manana = new Date(hoy);
-manana.setDate(hoy.getDate() + 1);
+const fechaHN = new Date(
+  hoy.toLocaleString('en-US', { timeZone: 'America/Tegucigalpa' })
+);
 
-const fechaProceso = process.argv[2] || manana.toISOString().slice(0,10);
+const fechaProceso = process.argv[2] || fechaHN.toISOString().slice(0,10);
 console.log("Fecha Proceso:", fechaProceso)
 
 const dates = conversion(fechaProceso);

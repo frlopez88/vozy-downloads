@@ -20,6 +20,7 @@
   "homepage": "https://github.com/frlopez88/vozy-downloads#readme",
   "dependencies": {
     "dotenv": "^17.2.1",
+    "nodemailer": "^7.0.6",
     "pg": "^8.16.3"
   }
 }

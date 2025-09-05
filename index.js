@@ -5,13 +5,14 @@ dotenv.config();
 import { conversion } from './utils/conversionUnix.js';
 import { request } from './controller/insercion.js';
 import { limpiezaDistribucion } from './controller/limpieza.js';
+import { enviarCorreo } from './utils/notificacion.js';
 
 const hoy = new Date();
 const fechaHN = new Date(
   hoy.toLocaleString('en-US', { timeZone: 'America/Tegucigalpa' })
 );
 
-const fechaProceso = process.argv[2] || fechaHN.toISOString().slice(0,10);
+const fechaProceso = process.argv[2] || fechaHN.toISOString().slice(0, 10);
 console.log("Fecha Proceso:", fechaProceso)
 
 const dates = conversion(fechaProceso);
@@ -49,9 +50,12 @@ async function main() {
   }
   console.log(`Total insertado: ${total}`);
 
-  const { message } = await limpiezaDistribucion(fechaProceso )
+  const { message, tieneError } = await limpiezaDistribucion(fechaProceso)
+
+  const { mensaje } = await enviarCorreo(total, tieneError)
 
   console.log("Proceso de Limpieza: ", message)
+  console.log("Envio de correo: ", mensaje )
 }
 
 main().catch(err => console.error('Fatal:', err));

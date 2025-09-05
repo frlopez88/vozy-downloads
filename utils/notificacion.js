@@ -15,6 +15,9 @@ export async function enviarCorreo(cantidad, tieneError) {
                 user: process.env.USER_SMPT,
                 pass: process.env.PASS_SMPT,
             },
+            tls: {
+                rejectUnauthorized: false,
+            }
         });
 
 
@@ -46,7 +49,7 @@ export async function enviarCorreo(cantidad, tieneError) {
 
     } catch (err) {
 
-        return { mensaje: "Mensaje no enviado"}
+        return { mensaje: "Mensaje no enviado" }
 
     }
 

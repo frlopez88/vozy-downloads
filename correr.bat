@@ -1,13 +1,10 @@
 @echo off
 cd /d "C:\Users\Administrator\Documents\GitHub\vozy-downloads"
-for /f "tokens=2-4 delims=/ " %%a in ('date /t') do (
-    set dia=%%a
-    set mes=%%b
-    set anio=%%c
-)
 
-set hoy=%anio%-%mes%-%dia%
+:: Usamos PowerShell para calcular el día de mañana en formato YYYY-MM-DD
+for /f %%i in ('powershell -command "(Get-Date).AddDays(1).ToString(\"yyyy-MM-dd\")"') do set manana=%%i
 
-node index.js %hoy%
+:: Ejecutar Node con la fecha de mañana
+node index.js %manana%
 
 exit /b 0

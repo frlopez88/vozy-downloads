@@ -49,7 +49,8 @@ export async function enviarCorreo(cantidad, tieneError) {
 
     } catch (err) {
 
-        return { mensaje: "Mensaje no enviado" }
+
+        return { mensaje: err.message }
 
     }
 

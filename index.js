@@ -27,7 +27,7 @@ async function main() {
   let total = 0;
 
   while (true) {
-    const url = `${base_url}?start_date=${dates.inicio_unix}&end_date=${dates.fin_unix}&page=${page}&per_page=500`;
+    const url = `${base_url}?start_date=${dates.inicio_unix}&end_date=${dates.fin_unix}&page=${page}&per_page=250`;
     console.log(`Page ${page} -> ${url}`);
 
     const { count, done, error } = await request(url, api_key);
@@ -50,9 +50,9 @@ async function main() {
   }
   console.log(`Total insertado: ${total}`);
 
-  const { message, tieneError } = await limpiezaDistribucion(fechaProceso)
+  const { message, tieneError2 } = await limpiezaDistribucion(fechaProceso)
 
-  const { mensaje } = await enviarCorreo(total, tieneError)
+  const { mensaje } = await enviarCorreo(total, tieneError2, fechaProceso, message)
 
   console.log("Proceso de Limpieza: ", message)
   console.log("Envio de correo: ", mensaje )

@@ -35,9 +35,9 @@ export const request = async (url, x_api_key) => {
       return { count: 0, done: true };
     }
 
-    const answered = records.filter(r => r.call_answered === true);
+    //const answered = records.filter(r => r.call_answered === true);
 
-    for (const obj of answered) {
+    for (const obj of records) {
       const params = [
         obj.date?.substring(0, 10),
         obj.session_id,
@@ -51,8 +51,7 @@ export const request = async (url, x_api_key) => {
       await pool.query(INSERT_SQL, params);
     }
 
-    return { count: answered.length, done: false };
-
+    return { count: records.length, done: false };
   } catch (err) {
     console.error('request() error:', err.message);
     // si falla, corta la paginación para que no quede en loop infinito

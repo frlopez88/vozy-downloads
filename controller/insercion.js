@@ -35,15 +35,15 @@ export const request = async (url, x_api_key) => {
       return { count: 0, done: true };
     }
 
-    // --- DIAGNOSTICO: imprime el primer registro para verificar estructura ---
+    /* --- DIAGNOSTICO: imprime el primer registro para verificar estructura ---
     console.log('=== PRIMER REGISTRO (estructura completa) ===');
     console.log(JSON.stringify(records[0], null, 2));
     console.log('=== voicemail del primer registro:', records[0]?.voicemail);
     console.log('=== keys del primer registro:', Object.keys(records[0] ?? {}));
-    // -----------------------------------------------------------------------
+     ----------------------------------------------------------------------- */
 
     for (const obj of records) {
-      console.log(obj)
+      
       const params = [
         obj.date?.substring(0, 10),
         obj.session_id,

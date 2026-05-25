@@ -9,8 +9,8 @@ const tabla = process.env.BD_TBL_LLAMADAS
 
 const INSERT_SQL = `
   INSERT INTO ${tabla}
-  (fecha, session_id, contact_phone, call_answered, duration, campaign_name, variables, hang_up_cause)
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+  (fecha, session_id, contact_phone, call_answered, duration, campaign_name, variables, hang_up_cause, voicemail)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
 `;
 
 
@@ -35,9 +35,15 @@ export const request = async (url, x_api_key) => {
       return { count: 0, done: true };
     }
 
-    //const answered = records.filter(r => r.call_answered === true);
+    // --- DIAGNOSTICO: imprime el primer registro para verificar estructura ---
+    console.log('=== PRIMER REGISTRO (estructura completa) ===');
+    console.log(JSON.stringify(records[0], null, 2));
+    console.log('=== voicemail del primer registro:', records[0]?.voicemail);
+    console.log('=== keys del primer registro:', Object.keys(records[0] ?? {}));
+    // -----------------------------------------------------------------------
 
     for (const obj of records) {
+      console.log(obj)
       const params = [
         obj.date?.substring(0, 10),
         obj.session_id,
@@ -45,8 +51,9 @@ export const request = async (url, x_api_key) => {
         obj.call_answered,
         obj.duration,
         obj.campaign_name,
-        obj.variables, 
-        obj.hang_up_cause
+        obj.variables,
+        obj.hang_up_cause,
+        obj.voicemail ?? false
       ];
       await pool.query(INSERT_SQL, params);
     }

@@ -52,10 +52,10 @@ async function main() {
 
   const { message, tieneError2 } = await limpiezaDistribucion(fechaProceso)
 
-  const { mensaje } = await enviarCorreo(total, tieneError2, fechaProceso, message)
+ // const { mensaje } = await enviarCorreo(total, tieneError2, fechaProceso, message)
 
   console.log("Proceso de Limpieza: ", message)
-  console.log("Envio de correo: ", mensaje )
+ // console.log("Envio de correo: ", mensaje )
 }
 
 main().catch(err => console.error('Fatal:', err));

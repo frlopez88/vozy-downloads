@@ -53,7 +53,7 @@ export const request = async (url, x_api_key) => {
         obj.campaign_name,
         obj.variables,
         obj.hang_up_cause,
-        obj.voicemail ?? false
+        obj.call_voicemail ?? false
       ];
       await pool.query(INSERT_SQL, params);
     }

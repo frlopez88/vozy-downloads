@@ -9,8 +9,8 @@ const tabla = process.env.BD_TBL_LLAMADAS
 
 const INSERT_SQL = `
   INSERT INTO ${tabla}
-  (fecha, session_id, contact_phone, call_answered, duration, campaign_name, variables, hang_up_cause, voicemail)
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+  (fecha, session_id, contact_phone, call_answered, duration, campaign_name, variables, hang_up_cause, voicemail, contactability, call_contacted)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
 `;
 
 
@@ -53,7 +53,9 @@ export const request = async (url, x_api_key) => {
         obj.campaign_name,
         obj.variables,
         obj.hang_up_cause,
-        obj.call_voicemail ?? false
+        obj.call_voicemail ?? false,
+        obj.contactability_type,
+        obj.call_contacted
       ];
       await pool.query(INSERT_SQL, params);
     }

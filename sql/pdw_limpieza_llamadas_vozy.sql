@@ -39,11 +39,13 @@ begin
         reason            varchar(1000),
         code_reason       varchar(1000),
         hang_up_cause     varchar(1000),
-        voicemail         boolean
+        voicemail         boolean,
+        contactability    varchar(200),
+        call_contacted    boolean
     );
 
     insert into tbl_llamadas_final
-    (fecha, session_id, contact_phone, call_answered, campaign_name, duration, hang_up_cause, voicemail)
+    (fecha, session_id, contact_phone, call_answered, campaign_name, duration, hang_up_cause, voicemail, contactability, call_contacted)
     select to_date(fecha, 'yyyy-mm-dd'),
            session_id,
            contact_phone,
@@ -51,7 +53,9 @@ begin
            campaign_name,
            duration,
            hang_up_cause,
-           coalesce(voicemail, false)
+           coalesce(voicemail, false),
+           contactability,
+           coalesce(call_contacted, false)
     from extracciones.tbl_llamadas;
 
     update tbl_llamadas_final a
@@ -117,7 +121,9 @@ begin
      vozy_success_type,
      reason,
      code_reason,
-     voicemail)
+     voicemail,
+     contactability,
+     call_contacted)
     select fecha,
            session_id,
            contact_phone,
@@ -132,7 +138,9 @@ begin
            vozy_success_type,
            reason,
            code_reason,
-           voicemail
+           voicemail,
+           contactability,
+           call_contacted
     from tbl_llamadas_final;
 
     truncate table extracciones.tbl_llamadas;

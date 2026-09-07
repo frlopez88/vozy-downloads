@@ -51,7 +51,9 @@ begin
            reason,
            code_reason,
            hang_up_cause,
-           voicemail
+           voicemail,
+           contactability,
+           call_contacted
     from extracciones.tbl_extraccion_llamadas_vozy a
     where fecha = v_fecha
       and call_answered = true;
@@ -62,7 +64,8 @@ begin
 
     insert into extracciones.tbl_asignacion
     (fecha, session_id, contact_phone, call_answered, campaign_name, duration, codigo_cliente, inactivo,
-     fecha_limite, saldo, grupo, analista, vozy_success_type, reason, code_reason, hang_up_cause, voicemail)
+     fecha_limite, saldo, grupo, analista, vozy_success_type, reason, code_reason, hang_up_cause, voicemail,
+     contactability, call_contacted)
     select a.fecha,
            a.session_id,
            a.contact_phone,
@@ -79,7 +82,9 @@ begin
            a.reason,
            a.code_reason,
            a.hang_up_cause,
-           a.voicemail
+           a.voicemail,
+           a.contactability,
+           a.call_contacted
     from tbl_asignacion_w1 a,
          tbl_analistas_ordenados b
     where (mod(r1, v_analistas) + 1) = b.grupo;
